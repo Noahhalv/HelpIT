@@ -1,0 +1,15 @@
+.ticket-grid {
+    width: 90vw;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+.ticket-item {
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 2%;
+    background-color: rgb(75, 75, 75);
+    aspect-ratio: 5/3;
+    max-width: 10vw;
+}

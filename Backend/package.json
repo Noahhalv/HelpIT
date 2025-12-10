@@ -1,0 +1,14 @@
+{
+  "name": "helpit",
+  "version": "1.0.0",
+  "description": "Support Tickets for HelpIT",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^2.2.1",
+    "cors": "^2.8.5",
+    "express": "^5.2.1"
+  }
+}
