@@ -24,8 +24,8 @@ const getSingleTicket = async (req, res) => {
 
 const createTicket = async (req, res) => {
     try {
-        const { title, description, dateAdded, priority } = req.body;
-        const newTicket = await addObject({ title, description, dateAdded, priority });
+        const { title, description, dateAdded, priority, ticketStatus } = req.body;
+        const newTicket = await addObject({ title, description, dateAdded, priority, ticketStatus });
 
         respond(res, { created: true, data: newTicket });
     } catch (error) {

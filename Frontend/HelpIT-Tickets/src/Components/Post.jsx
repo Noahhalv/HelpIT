@@ -1,12 +1,14 @@
 import { useState } from "react";
 import './Post.css'
 
-export default function CreateItem() {
+export default function CreateItem({ hidden, setPostHidden }) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [dateAdded, setDateAdded] = useState("");
     const [priority, setPriority] = useState("");
+    const [ticketStatus, setTicketStatus] = useState("");
     const [status, setStatus] = useState(null);
+
+
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -16,7 +18,8 @@ export default function CreateItem() {
             title,
             description,
             priority: Number(priority),
-            dateAdded: new Date().toLocaleString()
+            dateAdded: new Date().toLocaleString(),
+            ticketStatus: 'To do'
         };
 
 
@@ -33,6 +36,9 @@ export default function CreateItem() {
             setTitle("");
             setDescription("");
             setPriority("");
+            setTicketStatus("")
+
+            setPostHidden(!hidden);
 
             window.location.reload();
         } catch (err) {
@@ -42,37 +48,40 @@ export default function CreateItem() {
 
 
 
-    return (
-        <form onSubmit={handleSubmit} className="formInput">
-            <input 
-                type="text"
-                className="titleInput"
-                placeholder="Title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-            />
+     return (
+        <>
+            {!hidden ? <form onSubmit={handleSubmit} className="formInput">
+                    <input 
+                        type="text"
+                        className="titleInput"
+                        placeholder="Title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
 
-            <input 
-                type="text"
-                className="descriptionInput"
-                placeholder="Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-            />
+                    <input 
+                        type="text"
+                        className="descriptionInput"
+                        placeholder="Description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
 
-            <input 
-                type="number"
-                className="priorityInput"
-                placeholder="Priority"
-                min="0"
-                max="4"
-                value={priority}
-                onChange={(e) => setPriority(e.target.value)}
-            />
+                    <input 
+                        type="number"
+                        className="priorityInput"
+                        placeholder="Priority"
+                        min="0"
+                        max="4"
+                        value={priority}
+                        onChange={(e) => setPriority(e.target.value)}
+                    />
 
-            <button type="submit" className="submitButton">
-                {status && <div>{status}</div> || <p>Post Ticket</p>}
-            </button>
-        </form>
+                    <button type="submit" className="submitButton">
+                        {status && <div>{status}</div> || <p>Post Ticket</p>}
+                    </button>
+                </form> : null
+            }
+        </>
     )
 }
