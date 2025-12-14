@@ -4,7 +4,7 @@ export default function Navbar({ postHidden, setPostHidden }) {
 
     const togglePost = () => {
         setPostHidden(!postHidden)
-        console.log(postHidden)
+        // console.log(postHidden)
     }
 
     return (

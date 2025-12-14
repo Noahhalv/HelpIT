@@ -36,9 +36,9 @@ const createTicket = async (req, res) => {
 const updateTicket = async (req, res) => {
     try {
         const { id } = req.params;
-        const { title, director, year } = req.body;
+        const { title, description, dateAdded, priority, ticketStatus } = req.body;
 
-        const updatedObject = await updateObjectById(id, { title, director, year });
+        const updatedObject = await updateObjectById(id, { title, description, dateAdded, priority, ticketStatus });
 
         respond(res, { data: updatedObject });
     } catch (error) {

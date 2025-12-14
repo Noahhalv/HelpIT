@@ -5,8 +5,7 @@ export default function CreateItem({ hidden, setPostHidden }) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [priority, setPriority] = useState("");
-    const [ticketStatus, setTicketStatus] = useState("");
-    const [status, setStatus] = useState(null);
+    const [status, setStatus] = useState("");
 
 
 
@@ -36,7 +35,6 @@ export default function CreateItem({ hidden, setPostHidden }) {
             setTitle("");
             setDescription("");
             setPriority("");
-            setTicketStatus("")
 
             setPostHidden(!hidden);
 
