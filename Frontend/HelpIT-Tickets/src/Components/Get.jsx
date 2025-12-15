@@ -1,4 +1,4 @@
-// import Delete from './Delete.jsx'
+import Delete from './Delete.jsx'
 import Edit from './Edit.jsx'
 import { useEffect, useState } from "react";
 import './Get.css'
@@ -11,9 +11,17 @@ export default function ItemFetcher() {
     const [isEditHidden, setIsEditHidden] = useState(true)
     const [editId, setEditId] = useState("");
 
+    const [isDeleteHidden, setIsDeleteHidden] = useState(true)
+    const [deleteId, setDeleteId] = useState("");
+
     const editTicket = (id) => {
         if (id == editId || editId == "") {setIsEditHidden(!isEditHidden)}
         setEditId(id);
+    }
+
+    const deleteTicket = (id) => {
+        if (id == deleteId || deleteId == "") {setIsDeleteHidden(!isDeleteHidden)}
+        setDeleteId(id);
     }
 
     useEffect(() => {
@@ -38,11 +46,12 @@ export default function ItemFetcher() {
     return (
         <div className="ticket-grid">
             <Edit isHidden={isEditHidden} setIsHidden={setIsEditHidden} itemId={editId}/>
+            <Delete id={deleteId} isHidden={isDeleteHidden} setIsHidden={setIsDeleteHidden}/>
             {items.map((item, i) => (
                 <div key={i} className="ticket-item" id={`${item.id}`}>
                     <div className="functionality">
                         <button onClick={() => editTicket(item.id)}>&#128394;</button> {/* Edit */}
-                        <button onClick={null} style={{color: "#dc3545"}}>&#10006;</button> {/* Delete */}
+                        <button onClick={() => deleteTicket(item.id)} style={{color: "#dc3545"}}>&#10006;</button> {/* Delete */}
                     </div>
                     <h3 className="title">{item.title}</h3>
                     <p className="description">Description: {item.description}</p>
