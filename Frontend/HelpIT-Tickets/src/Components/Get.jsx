@@ -10,6 +10,8 @@ export default function ItemFetcher({items, loading, error, refetch}) {
     const [isDeleteHidden, setIsDeleteHidden] = useState(true)
     const [deleteId, setDeleteId] = useState("");
 
+    const sortedItems = items.sort((a,b) => b.priority - a.priority || a.id - b.id)
+
     const editTicket = (id) => {
         setEditId(id);
         if (id == editId || editId == "") setIsEditHidden(!isEditHidden)
@@ -29,7 +31,7 @@ export default function ItemFetcher({items, loading, error, refetch}) {
         <div className="ticket-grid">
             <Edit isHidden={isEditHidden} setIsHidden={setIsEditHidden} itemId={editId} onSuccess={refetch}/>
             <Delete id={deleteId} isHidden={isDeleteHidden} setIsHidden={setIsDeleteHidden} onSuccess={refetch}/>
-            {items.map((item) => (
+            {sortedItems.map((item) => (
                 <div key={item.id} className="ticket-item" id={`${item.id}`}>
                     <div className="functionality">
                         <button onClick={() => editTicket(item.id)}>&#128394;</button> {/* Edit */}
