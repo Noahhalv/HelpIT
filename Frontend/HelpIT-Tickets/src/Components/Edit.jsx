@@ -8,7 +8,7 @@ export default function Edit({isHidden, setIsHidden, itemId, onSuccess}) {
     
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [priority, setPriority] = useState("");
+    const [priority, setPriority] = useState(0);
     const [ticketStatus, setStatus] = useState("");
     
     const loadTicket = () => {
@@ -30,10 +30,10 @@ export default function Edit({isHidden, setIsHidden, itemId, onSuccess}) {
 
     useEffect(() => {
     if (item) {
-        setTitle(item.title);
-        setDescription(item.description);
-        setPriority(item.priority);
-        setStatus(item.ticketStatus);
+        setTitle(item.title ?? "");
+        setDescription(item.description ?? "");
+        setPriority(item.priority ?? 0);
+        setStatus(item.ticketStatus ?? "");
     }
     }, [item]);
 
@@ -77,7 +77,6 @@ export default function Edit({isHidden, setIsHidden, itemId, onSuccess}) {
             setStatus("Something went wrong!");
         }
         
-        // location.reload();
         setIsHidden(true)
         onSuccess()
     }
@@ -125,13 +124,12 @@ export default function Edit({isHidden, setIsHidden, itemId, onSuccess}) {
 
                 <div>
                     <p>Status</p>
-                    <input 
-                        type="text"
-                        className="statusInput"
-                        placeholder="Status"
-                        value={ticketStatus}
-                        onChange={(e) => setStatus(e.target.value)}
-                    />
+                    <select name="status" className="statusInput" value={ticketStatus} onChange={(e) => setStatus(e.target.value)}>
+                        <option value="To Do">To Do</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
                 </div>
 
                 <p className="dateAdded">Ticket created: {item.dateAdded}</p>

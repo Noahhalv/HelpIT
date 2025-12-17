@@ -11,13 +11,15 @@ export default function ItemFetcher({items, loading, error, refetch}) {
     const [deleteId, setDeleteId] = useState("");
 
     const editTicket = (id) => {
-        if (id == editId || editId == "") {setIsEditHidden(!isEditHidden)}
         setEditId(id);
+        if (id == editId || editId == "") setIsEditHidden(!isEditHidden)
+        else setIsEditHidden(false)
     }
 
     const deleteTicket = (id) => {
-        if (id == deleteId || deleteId == "") {setIsDeleteHidden(!isDeleteHidden)}
         setDeleteId(id);
+        if (id == deleteId || deleteId == "") setIsDeleteHidden(!isDeleteHidden)
+        else setIsDeleteHidden(false)
     }
 
     if (loading) return <div>Loading...</div>;
@@ -27,8 +29,8 @@ export default function ItemFetcher({items, loading, error, refetch}) {
         <div className="ticket-grid">
             <Edit isHidden={isEditHidden} setIsHidden={setIsEditHidden} itemId={editId} onSuccess={refetch}/>
             <Delete id={deleteId} isHidden={isDeleteHidden} setIsHidden={setIsDeleteHidden} onSuccess={refetch}/>
-            {items.map((item, i) => (
-                <div key={i} className="ticket-item" id={`${item.id}`}>
+            {items.map((item) => (
+                <div key={item.id} className="ticket-item" id={`${item.id}`}>
                     <div className="functionality">
                         <button onClick={() => editTicket(item.id)}>&#128394;</button> {/* Edit */}
                         <button onClick={() => deleteTicket(item.id)} style={{color: "#dc3545"}}>&#10006;</button> {/* Delete */}
