@@ -1,6 +1,6 @@
 import './Delete.css'
 
-export default function Delete({id, isHidden, setIsHidden}) {
+export default function Delete({id, isHidden, setIsHidden, onSuccess}) {
 
     async function handleDelete(e) {
         e.preventDefault();
@@ -13,7 +13,8 @@ export default function Delete({id, isHidden, setIsHidden}) {
             console.error("Error deleting ticket:", err);
         }
 
-        location.reload();
+        setIsHidden(true)
+        onSuccess()
     }
 
     return (<>

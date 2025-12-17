@@ -1,13 +1,9 @@
 import Delete from './Delete.jsx'
 import Edit from './Edit.jsx'
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import './Get.css'
 
-export default function ItemFetcher() {
-    const [items, setItems] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
+export default function ItemFetcher({items, loading, error, refetch}) {
     const [isEditHidden, setIsEditHidden] = useState(true)
     const [editId, setEditId] = useState("");
 
@@ -24,29 +20,13 @@ export default function ItemFetcher() {
         setDeleteId(id);
     }
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const response = await fetch("http://localhost:3002/api/v1.0.0/tickets");
-                const data = await response.json();
-                console.log(data.data);
-                setItems(data.data);
-            } catch (err) {
-                setError("Something went wrong!");
-            } finally {
-                setLoading(false);
-            }
-        }
-        fetchData();
-    }, []);
-
     if (loading) return <div>Loading...</div>;
     if (error) return <div>{error}</div>;
 
     return (
         <div className="ticket-grid">
-            <Edit isHidden={isEditHidden} setIsHidden={setIsEditHidden} itemId={editId}/>
-            <Delete id={deleteId} isHidden={isDeleteHidden} setIsHidden={setIsDeleteHidden}/>
+            <Edit isHidden={isEditHidden} setIsHidden={setIsEditHidden} itemId={editId} onSuccess={refetch}/>
+            <Delete id={deleteId} isHidden={isDeleteHidden} setIsHidden={setIsDeleteHidden} onSuccess={refetch}/>
             {items.map((item, i) => (
                 <div key={i} className="ticket-item" id={`${item.id}`}>
                     <div className="functionality">

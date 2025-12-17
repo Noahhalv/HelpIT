@@ -1,13 +1,11 @@
 import { useState } from "react";
 import './Post.css'
 
-export default function CreateItem({ hidden, setPostHidden }) {
+export default function CreateItem({ hidden, setPostHidden, onSuccess }) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [priority, setPriority] = useState("");
     const [status, setStatus] = useState("");
-
-
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -37,8 +35,7 @@ export default function CreateItem({ hidden, setPostHidden }) {
             setPriority("");
 
             setPostHidden(!hidden);
-
-            window.location.reload();
+            onSuccess()
         } catch (err) {
             setStatus("Something went wrong!");
         }
